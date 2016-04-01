@@ -93,14 +93,6 @@ public class InviteMethods {
 	
 	public double calcTotal(double invitePrice, double matPrice, double responsePrice, double infoPrice, double mehndiPrice) {
 		
-		//invitePrice = matPrice = responsePrice = infoPrice = mehndiPrice = 0.0;
-	    
-		invitePrice = calcTotalInvites(numOfInvites);
-		matPrice = calcMatting(numOfInvites);
-		responsePrice = calcTotalMAndR(numOfInvites);
-		infoPrice = calcTotalInfo(numOfInvites);
-		mehndiPrice = calcTotalMAndR(numOfInvites);
-	    
 	    return invitePrice + matPrice + responsePrice + infoPrice + mehndiPrice;
 	    
 	    
