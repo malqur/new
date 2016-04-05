@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.JTextComponent;
 import javax.swing.JComboBox;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
@@ -12,6 +13,7 @@ import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -279,39 +281,46 @@ public class InviteObjects extends JFrame {
 		contentPane.add(lblHenna);
 		
 		JRadioButton hennaButton = new JRadioButton("");
-		hennaButton.setSelected(true);
+		hennaButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 if (hennaButton.isSelected() ) {
+					 radioButton = "Henna design";
+				 }
+			}
+		});
+		hennaButton.setSelected(false);
 		hennaButton.setBounds(56, 165, 28, 23);
 		contentPane.add(hennaButton);
 		
 		JRadioButton blueButton = new JRadioButton("");
-		blueButton.setSelected(true);
+		blueButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 if (blueButton.isSelected() ) {
+					 radioButton = "Blue design";
+				 }
+			}
+		});
+		blueButton.setSelected(false);
 		blueButton.setBounds(169, 165, 28, 23);
 		contentPane.add(blueButton);
 		
 		JRadioButton redButton = new JRadioButton("");
-		redButton.setSelected(true);
+		redButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 if (redButton.isSelected() ) {
+					 radioButton = "Red Design";
+				 }
+			}
+		});
+		redButton.setSelected(false);
 		redButton.setBounds(272, 165, 28, 23);
 		contentPane.add(redButton);
-		
 		
 		 ButtonGroup group = new ButtonGroup();
 		    group.add(hennaButton);
 		    group.add(blueButton);
 		    group.add(redButton);
-		
 		    
-		 if (hennaButton.isSelected() ) {
-			 radioButton = "Henna design";
-		 }
-		 
-		 if (blueButton.isSelected() ) {
-			 radioButton = "Blue design";
-		 }
-		 
-		 if (redButton.isSelected() ) {
-			 radioButton = "Red Design";
-		 }
-		 
 		 JLabel lblNewLabel = new JLabel("Invitation Suite Pricing and Information");
 		 lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
 		 lblNewLabel.setBounds(24, 24, 346, 27);
@@ -412,39 +421,22 @@ public class InviteObjects extends JFrame {
 		 btnSubmit.addActionListener(new ActionListener() {
 		    	
 			public void actionPerformed(ActionEvent e) {
-				String submitInvites = textInvites.getText();
-		    	String submitMat = textMat.getText();
-		    	String submitResponse = textResponse.getText();
-		    	String submitInfo = textInfo.getText();
-		    	String submitMehndi = textMehndi.getText();
-		    	String submitTotal = textTotal.getText();
-		    	String submitName1 = textName1.getText();
-		    	String submitName2 = textName2.getText();
-		    	String submitVenue = textVenue.getText();
-		    	String submitDate = textDate.getText();
-		    	String submitAddress = textAddress.getText();
-		    	String submitCityState = textCityState.getText();
-		    	String submitAdditionalInfo = textAdditionalInfo.getText();
-	
+
 				try {
-					WriteFile data = new WriteFile( "/Users/Qureshi/Documents/Orders/" + submitName1 + "_" + submitName2 + ".txt" , true );
-				    	
+					WriteFile data = new WriteFile( "/Users/Qureshi/Documents/Orders/" + textName1.getText() + "_" + textName2.getText() + ".txt" , true );
+		
 				    data.writeToFile(radioButton);
 				    data.writeToFile(selectPaper);
-				    data.writeToFile(submitInvites);
-				    data.writeToFile(submitMat);
-				    data.writeToFile(submitResponse);
-				    data.writeToFile(submitInfo);
-				    data.writeToFile(submitMehndi);
-				    data.writeToFile(submitTotal);
-				    data.writeToFile(submitName1);
-				    data.writeToFile(submitName2);
-				    data.writeToFile(submitVenue);
-				    data.writeToFile(submitDate);
-				    data.writeToFile(submitAddress);
-				    data.writeToFile(submitCityState);
-				    data.writeToFile(submitAdditionalInfo);
+				    
+				    Component[] components = contentPane.getComponents();
+				    for (Component component : components) {
+				        if (component instanceof JTextField || component instanceof JTextArea) {
+				            JTextComponent specificObject = (JTextComponent) component;
+				            data.writeToFile(specificObject.getText());
+				        }
 				    }
+					
+				}
 				catch (IOException ee) {
 				    System.out.println(ee.getMessage() );;
 				}
@@ -452,9 +444,7 @@ public class InviteObjects extends JFrame {
 				contentPane.updateUI();
 				
 				JPanel newPane = new JPanel();
-				    
 				newPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-			
 				newPane.setLayout(null);
 				setContentPane(contentPane);
 				
